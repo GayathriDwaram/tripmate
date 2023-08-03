@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+
+</head>
+
+<body>
+  <%- include('navbar') %>
+
+  <div class="main p-4">
+    <h1>Profile</h1>
+    <!-- if role is driver -->
+    <% if (user?.role === 'driver') { %>
+    <h2>Vehicle Info</h2>
+    <!-- form to update vehicle info -->
+    <form action="/vehicle" method="post">
+      <!-- type -->
+      <div class="form-group">
+        <label for="type">Type</label>
+        <input type="text" class="form-control" id="type" name="type" placeholder="Type" value="<%= vehicle?.type %>" required>
+      </div>
+      <!-- model -->
+      <div class="form-group">
+        <label for="model">Model</label>
+        <input type="text" class="form-control" id="model" name="model" placeholder="Model" value="<%= vehicle?.model %>" required>
+      </div>
+      <!-- year -->
+      <div class="form-group">
+        <label for="year">Year</label>
+        <input type="number" class="form-control" id="year" name="year" placeholder="Year" value="<%= vehicle?.year %>" required>
+      </div>
+      <!-- color -->
+      <div class="form-group">
+        <label for="color">Color</label>
+        <input type="text" class="form-control" id="color" name="color" placeholder="Color" value="<%= vehicle?.color %>" required>
+      </div>
+      <!-- plate -->
+      <div class="form-group">
+        <label for="plate">Plate</label>
+        <input type="text" class="form-control" id="plate" name="plate" placeholder="Plate" value="<%= vehicle?.plate %>" required>
+      </div>
+
+      <!-- submit -->
+      <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+    <% } %>
+
+    <!-- Payment Details -->
+    <h3>
+      Payment Details
+    </h3>
+    <!-- 
+  const { card_number, cvv, expiry_date } = req.body;
+
+     -->
+    <!-- if user -->
+    <% if (user?.role === 'user') { %>
+    <form method="post" action="/payment">
+      <div class="form-group">
+        <label for="card_number">Card Number</label>
+        <input type="text" class="form-control" id="card_number" name="card_number" placeholder="Card Number" value="<%= payment?.card_number %>" required>
+      </div>
+      <div class="form-group">
+        <label for="cvv">CVV</label>
+        <input type="text" class="form-control" id="cvv" name="cvv" placeholder="CVV" value="<%= payment?.cvv %>" required>
+      </div>
+      <div class="form-group">
+        <label for="expiry_date">Expiry Date</label>
+        <input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="Expiry Date" value="<%= payment?.expiry_date %>" required>
+      </div>
+      <button type="submit" class="btn btn-dark mt-2">Submit</button>
+    </form>
+    <% } %>
+  </div>
+
+
+
+  <%- include('footer') %>
+</body>
+
+</html>

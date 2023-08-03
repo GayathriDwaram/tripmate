@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+
+</head>
+
+<body>
+  <%- include('navbar') %>
+
+    <div class="main">
+      <!-- vertical center -->
+      <div class="main d-flex justify-content-center align-items-center mt-4">
+        <div class="col-md-5 shadow border border-1 p-4 rounded py-5">
+          <h4 class="text-center">Welcome to Trip Mate</h4>
+          <form action="/" method="POST">
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" name="email" id="email" class="form-control" placeholder="Enter email" required>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" name="password" id="password" class="form-control" placeholder="Enter password"
+                required>
+            </div>
+
+            <div class="form-group mt-3">
+              <button type="submit" class="btn btn-dark">Login</button>
+            </div>
+
+            <!-- dont have an account -->
+            <div class="form-group mt-3">
+              <p class="text-center">Don't have an account? <a href="/signup">Signup</a></p>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+
+
+    <%- include('footer') %>
+</body>
+
+</html>

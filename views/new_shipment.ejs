@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+
+</head>
+
+<body>
+  <%- include('navbar') %>
+
+  <div class="main p-4">
+    <div class="row justify-content-between">
+      <div class="col-2">
+        <h4>New Shipment</h4>
+      </div>
+    </div>
+
+    <!-- start_time (datetime), end_time, price, tip, start_location, end_location -->
+    <form action="/shipments/new" method="POST">
+      <!-- start_time -->
+      <div class="form-group">
+        <label for="start_time">Start Time</label>
+        <input type="datetime-local" class="form-control" id="start_time" name="start_time" required>
+      </div>
+
+      <!-- end_time -->
+      <div class="form-group">
+        <label for="end_time">End Time</label>
+        <input type="datetime-local" class="form-control" id="end_time" name="end_time" required>
+      </div>
+
+      <!-- tip -->
+      <div class="form-group">
+        <label for="tip">Tip</label>
+        <input type="number" class="form-control" id="tip" name="tip" required>
+      </div>
+
+      <!-- start_location -->
+      <div class="form-group">
+        <label for="start_location">Start Location</label>
+        <input type="text" class="form-control" id="start_location" name="start_location" required>
+      </div>
+
+      <!-- end_location -->
+      <div class="form-group">
+        <label for="end_location">End Location</label>
+        <input type="text" class="form-control" id="end_location" name="end_location" required>
+      </div>
+
+      <button type="submit" class="btn btn-dark mt-2">Submit</button>
+
+    </form>
+
+
+
+
+    <%- include('footer') %>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+
+</head>
+
+<body>
+  <%- include('navbar') %>
+
+  <div class="main p-4">
+    <h3>Ride Detials</h3>
+    <!--generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  User_ID    Int        @id @default(autoincrement())
+  Email      String     @unique(map: "Email_UNIQUE") @db.VarChar(255)
+  Password   String     @db.VarChar(255)
+  Mobile     String     @unique(map: "Mobile_UNIQUE") @db.VarChar(255)
+  Address    String     @db.VarChar(255)
+  Role       String     @db.VarChar(255)
+  First_Name String     @db.VarChar(255)
+  Last_Name  String     @db.VarChar(255)
+  trip       ride[]     @relation("user")
+  ride       ride[]     @relation("driver")
+  shipment   shipment[] @relation("user")
+  delivery   shipment[] @relation("driver")
+  points     points[]
+  tracking   tracking[]
+  vehicle    vehicle[]
+}
+
+model vehicle {
+  id         Int      @id @default(autoincrement())
+  user_id    Int      @db.Int
+  type       String   @db.VarChar(255)
+  model      String   @db.VarChar(255)
+  color      String   @db.VarChar(255)
+  plate      String   @db.VarChar(255)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  user       user     @relation(fields: [user_id], references: [User_ID])
+  ride       ride[]
+}
+
+// ride
+model ride {
+  id             Int      @id @default(autoincrement())
+  user_id        Int      @db.Int
+  vehicle_id     Int      @db.Int
+  driver_id      Int      @db.Int
+  start_time     DateTime @db.DateTime
+  end_time       DateTime @db.DateTime
+  price          Float    @default(0) @db.Float
+  tip            Float    @default(0) @db.Float
+  // total can have decimal points
+  total          Float    @default(0) @db.Float
+  start_location String?  @db.VarChar(255)
+  end_location   String?  @db.VarChar(255)
+  status         String   @db.VarChar(255)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @default(now())
+  user           user     @relation("user", fields: [user_id], references: [User_ID])
+  driver         user     @relation("driver", fields: [driver_id], references: [User_ID])
+  vehicle        vehicle  @relation(fields: [vehicle_id], references: [id])
+  points         points[]
+}
+
+model shipment {
+  id             Int      @id @default(autoincrement())
+  shipment_code  String   @db.VarChar(255)
+  user_id        Int      @db.Int
+  driver_id      Int      @db.Int
+  start_time     DateTime @db.DateTime
+  end_time       DateTime @db.DateTime
+  price          Int      @default(0) @db.Int
+  tip            Int      @default(0) @db.Int
+  total          Int      @default(0) @db.Int
+  start_location String?  @db.VarChar(255)
+  end_location   String?  @db.VarChar(255)
+  status         String   @db.VarChar(255)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @default(now())
+  user           user     @relation("user", fields: [user_id], references: [User_ID])
+  driver         user     @relation("driver", fields: [driver_id], references: [User_ID])
+  points         points[]
+}
+
+model tracking {
+  id                Int      @id @default(autoincrement())
+  user_id           Int      @db.Int
+  shipment_id       Int      @db.Int
+  current_location  String?  @db.VarChar(255)
+  previous_location String?  @db.VarChar(255)
+  created_at        DateTime @default(now())
+  updated_at        DateTime @default(now())
+  user              user     @relation(fields: [user_id], references: [User_ID])
+}
+
+model points {
+  id          Int       @id @default(autoincrement())
+  user_id     Int       @db.Int
+  points      Int       @default(0) @db.Int
+  // ride, shipment, delivery
+  type        String    @default("ride") @db.VarChar(255)
+  // ride
+  ride_id     Int?      @db.Int
+  // shipment
+  shipment_id Int?      @db.Int
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  user        user      @relation(fields: [user_id], references: [User_ID])
+  ride        ride?     @relation(fields: [ride_id], references: [id])
+  shipment    shipment? @relation(fields: [shipment_id], references: [id])
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
+}
+ -->
+
+    <!-- card for driver and another for user and then last card should have ride details -->
+    <!-- variable is ride -->
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Ride Details</h5>
+        <p class="card-text">Ride ID: <%= ride.id %></p>
+        <p class="card-text">Start Time: <%= ride.start_time %></p>
+        <p class="card-text">End Time: <%= ride.end_time %></p>
+        <p class="card-text">Start Location: <%= ride.start_location %></p>
+        <p class="card-text">End Location: <%= ride.end_location %></p>
+        <p class="card-text">Price: <%= ride.price %></p>
+        <p class="card-text">Tip: <%= ride.tip %></p>
+        <p class="card-text">Total: <%= ride.total %></p>
+        <p class="card-text">Status: <%= ride.status %></p>
+        <p class="card-text">Driver: <%= ride.driver.First_Name %> <%= ride.driver.Last_Name %></p>
+        <p class="card-text">Vehicle ID: <%= ride.vehicle_id %></p>
+        <p class="card-text">User: <%= ride.user.First_Name %> <%= ride.user.Last_Name %></p>
+        <p class="card-text">Created At: <%= ride.created_at %></p>
+        <p class="card-text">Updated At: <%= ride.updated_at %></p>
+      </div>
+    </div>
+  </div>
+
+
+
+  <%- include('footer') %>
+</body>
+
+</html>

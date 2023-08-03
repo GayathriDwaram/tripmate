@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+
+</head>
+
+<body>
+  <%- include('navbar') %>
+
+  <div class="main p-4">
+    <div class="row justify-content-between">
+      <div class="col-2">
+        <h4>Rides</h4>
+      </div>
+      <div class="col-2">
+        <% if (user.role == 'user') { %>
+        <a href="/rides/new" class="btn btn-dark">Book a Ride</a>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- table -->
+    <!-- id, user.firstName + user.lastName, driver.firstName + driver.lastName, start_location, end_location, price, created_at, status -->
+    <div class="container">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Ride ID</th>
+            <th scope="col">User</th>
+            <th scope="col">Driver</th>
+            <th scope="col">Start Location</th>
+            <th scope="col">End Location</th>
+            <th scope="col">Price</th>
+            <th scope="col">Created At</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% rides.forEach(ride => { %>
+          <tr>
+            <th scope="row">
+              <a href="/rides/<%= ride.id %>"><%= ride.id %></a>
+            </th>
+            <td><%= ride.user.First_Name %> <%= ride.user.Last_Name %></td>
+            <td><%= ride.driver.First_Name %> <%= ride.driver.Last_Name %></td>
+            <td><%= ride.start_location %></td>
+            <td><%= ride.end_location %></td>
+            <td><%= ride.price %></td>
+            <td><%= ride.created_at %></td>
+            <td><%= ride.status %></td>
+            <!-- if role is driver change status by 2 buttons done or cancel -->
+            <% if (user.role == 'driver' && ride.status == 'in_progress') { %>
+            <td>
+              <form action="/rides/<%= ride.id %>/done" method="POST">
+                <button type="submit" class="btn btn-success">Done</button>
+              </form>
+              <form action="/rides/<%= ride.id %>/cancel" method="POST">
+                <button type="submit" class="btn btn-danger">Cancel</button>
+              </form>
+            </td>
+            <% } else { %>
+            <td>
+            </td>
+            <% } %>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+
+  <%- include('footer') %>
+</body>
+
+</html>
